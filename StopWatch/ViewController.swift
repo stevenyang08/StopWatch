@@ -10,14 +10,62 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    @IBOutlet weak var timerLabel: UILabel!
+    
+    var time = 0
+    var timer = NSTimer()
+    
+    func player() {
+        time += 1
+        timerLabel.text = String(time)
+    }
+    
+    func rewinder() {
+        time -= 1
+        if time == 0 {
+            timer.invalidate()
+            time -= 0
+            timerLabel.text = String(time)
+        } else {
+            timerLabel.text = String(time)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        timerLabel.text = String(time)
+        
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func playButton(sender: AnyObject) {
+        timingFunction(1, selector: "player")
+    }
+    
+    @IBAction func pauseButton(sender: AnyObject) {
+        timer.invalidate()
+    }
+    
+    @IBAction func rewindButton(sender: AnyObject) {
+        timingFunction(1, selector: "rewinder")
+    }
+    @IBAction func forwardButton(sender: AnyObject) {
+        timingFunction(0.5, selector: "player")
+    }
+    
+    @IBAction func clearButton(sender: AnyObject) {
+        timer.invalidate()
+        time = 0
+        timerLabel.text = String(time)
+    }
+    
+    
+    
+    
+    func timingFunction(seconds: NSTimeInterval, selector: String) {
+        timer.invalidate()
+        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: Selector(selector), userInfo: nil, repeats: true)
     }
 
 
