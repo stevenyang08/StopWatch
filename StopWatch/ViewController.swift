@@ -16,6 +16,13 @@ class ViewController: UIViewController {
     var time = 0
     var timer = NSTimer()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        timerLabel.text = String(time)
+        
+        
+    }
+    
     func player() {
         time += 1
         timerLabel.text = String(time)
@@ -30,13 +37,6 @@ class ViewController: UIViewController {
         } else {
             timerLabel.text = String(time)
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        timerLabel.text = String(time)
-        
-        
     }
     
     @IBAction func playButton(sender: AnyObject) {
